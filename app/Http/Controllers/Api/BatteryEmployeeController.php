@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\BatteryUser;
 use App\Services\EmployeeBatteryService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -48,27 +49,18 @@ class BatteryEmployeeController extends Controller
       'status.required'     => 'Select Status',
     ] );
     $data = $request->all();
-    $duplicate = [];
     foreach( $request->battery_id as $bat ) {
-      $battery = BatteryUser::where( 'battery_id', $bat )->where( 'issued_to', $request->issued_to )
-                            ->where( 'issued_by', $request->issued_by )->orderBy( 'id', 'Desc' )->first();
+      
       if( $request->issued_to === $request->issued_by ) {
         return response()->json( [ 'status' => 'error', 'message' => 'Issued By & Issued To Must be different.' ],
           400 );
       }
-     // if( !$battery ) {
-        $data[ 'battery_id' ] = $bat;
-        BatteryUser::create( $data );
-    /*  } else {
-        $duplicate[] = $battery;
-        
-      }*/
+      
+      $data[ 'battery_id' ] = $bat;
+      BatteryUser::create( $data );
       
     }
-   /* if( !empty( $duplicate ) ) {
-      return response()->json( [ 'status' => 'ok', 'message' => 'Duplicate Found in issuing battery please check the updated entries which is not duplicate.' ],
-        200 );
-    }*/
+    
     return response()->json( [ 'status' => 'ok', 'message' => 'Battery Issued Successfully' ], 200 );
   } // store
   

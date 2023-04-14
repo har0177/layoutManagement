@@ -11,13 +11,13 @@
 				@csrf
 				<div class="form-group row">
 
-					<div class="col-md-6">
+					<div class="col-md-4">
 
 						<label><strong>Battery Name:</strong></label>
 						<select name="battery_id[]" multiple data-placeholder="Select Battery"
 						        class="form-control select2 batteries"></select>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label
 							for="status">Status:</label>
 						<select id="status" name="status" class="form-control select2">
@@ -26,15 +26,20 @@
 							<option value="Charging">Charging</option>
 						</select>
 					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-6">
+					<div class="col-md-4">
+
+						<label><strong>Remarks:</strong></label>
+						<input name="remarks" placeholder="i.e. remarks"
+						       class="form-control remarks"></input>
+					</div>
+
+					<div class="col-md-4">
 
 						<label><strong>Issue By:</strong></label>
 						<select name="issued_by" data-placeholder="Select Issued By"
 						        class="form-control select2 issued_by"></select>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 
 						<label><strong>Issue To:</strong></label>
 						<select name="issued_to" data-placeholder="Select Issued To"
@@ -65,6 +70,7 @@
 						<th>Battery</th>
 						<th>Issued By</th>
 						<th>Issued To</th>
+						<th>Remarks</th>
 						<th>Status</th>
 					</tr>
 					</thead>
@@ -98,6 +104,7 @@
 				 { data: 'battery' },
 				 { data: 'issued_by' },
 				 { data: 'issued_to' },
+				 { data: 'remarks' },
 				 { data: 'status' },
 			 ]
 		 })
@@ -128,8 +135,8 @@
 			 },
 		 })
 		 
-var option = new Option('FAUIJI CAMP', 51, true, true);
-    $('.issued_by, .issued_to').append(option).trigger('change');
+		 var option = new Option('FAUJI CAMP', 51, true, true)
+		 $('.issued_by, .issued_to').append(option).trigger('change')
 	 })
 
 	 function batteryClick (id) {
@@ -143,6 +150,7 @@ var option = new Option('FAUIJI CAMP', 51, true, true);
 					 $('.batteries').empty().trigger('change')
 					 $('.issued_by').empty().trigger('change')
 					 $('#status').val('').trigger('change')
+					 $('.remarks').val('')
 
 					 let data = res.data
 					 if (data.batteries) {
@@ -170,12 +178,17 @@ var option = new Option('FAUIJI CAMP', 51, true, true);
 		 })
 	 }
 
-$('#form-reset').on('click', function(e){
-    e.preventDefault()
-    						 $('.issued_by, .batteries, .issued_to').empty().trigger('change')
-    						 $('#status').val().trigger('change')
+	 $('#form-reset').on('click', function (e) {
+		 e.preventDefault()
+		 $('.batteries').empty().trigger('change')
+		 $('#status').val('Good').trigger('change')
+		 $('.remarks').val('')
 
-})
+		 var option = new Option('FAUJI CAMP', 51, true, true)
+		 $('.issued_by, .issued_to').append(option).trigger('change')
+
+	 })
+
 	 function submitForm () {
 		 $('#form-submit').attr('disabled', true).html('Wait...')
 		 let $form = $('#form-battery')
@@ -193,6 +206,9 @@ $('#form-reset').on('click', function(e){
 					 $('.batteries').val('').trigger('change')
 					 $('#status').val('Good').trigger('change')
 					 table.api().ajax.reload(null, false)
+					 var option = new Option('FAUJI CAMP', 51, true, true)
+					 $('.issued_by, .issued_to').append(option).trigger('change')
+
 					 $('#form-submit').removeAttr('disabled')
 					 return true
 				 }

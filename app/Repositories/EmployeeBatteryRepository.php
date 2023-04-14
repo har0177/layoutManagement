@@ -21,7 +21,7 @@ class EmployeeBatteryRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return BatteryUser::orderBy('id', 'DESC');
+    return BatteryUser::with( [ 'battery', 'to', 'by' ] )->orderBy( 'id', 'DESC' )->limit( 500 );
   }
   
 }

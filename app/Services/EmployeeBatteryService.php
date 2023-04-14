@@ -29,7 +29,7 @@ class EmployeeBatteryService
     $table = $dataTables->eloquent( $this->repository->dataTablesQuery() );
     
     $table->addColumn( 'battery', static function( $row ) {
-             return '<a href="#" onclick="batteryClick(' . $row->battery_id . ')" >' . batteryName( $row->battery_id ) . '</a>';
+             return '<a href="#" onclick="batteryClick(' . $row->battery_id . ')" >' . $row->battery->name . '</a>';
     } );
     
     $table->addColumn( 'date', static function( $row ) {
@@ -37,11 +37,11 @@ class EmployeeBatteryService
     } );
     
     $table->addColumn( 'issued_by', static function( $row ) {
-      return employeeName( $row->issued_by );
+      return $row->by->name;
     } );
   
     $table->addColumn( 'issued_to', static function( $row ) {
-      return employeeName( $row->issued_to );
+      return $row->to->name;
     } );
   
   /*

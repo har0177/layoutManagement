@@ -44,7 +44,7 @@ function batteryUser( $id )
 {
   $battery = BatteryUser::where('battery_id', $id )->orderBy('id', 'DESC')->first();
   if( $battery ) {
-    return 'Battery '. batteryName($battery->battery_id) . ' Issued to '. employeeName($battery->issued_to).' by '. employeeName($battery->issued_by).' having status '. $battery->status;
+    return 'Battery '. batteryName($battery->battery_id) . ' Issued to '. employeeName($battery->issued_to).' by '. employeeName($battery->issued_by).' having status '. $battery->status . ' On '. Carbon::make($battery->created_at)->format('d-M-Y h:i A');
   }
   return '';
 }
