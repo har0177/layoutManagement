@@ -4,7 +4,6 @@ use App\Models\Account;
 use App\Models\Bank;
 use App\Models\Battery;
 use App\Models\BatteryUser;
-
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Employee;
@@ -42,9 +41,13 @@ function batteryName( $id )
 
 function batteryUser( $id )
 {
-  $battery = BatteryUser::where('battery_id', $id )->orderBy('id', 'DESC')->first();
+  $battery = BatteryUser::with( 'to', 'by' )->where( 'battery_id', $id )->orderBy( 'id', 'DESC' )->first();
+  $addDays = Carbon::now()->subDays( 3 );
   if( $battery ) {
-    return 'Battery '. batteryName($battery->battery_id) . ' Issued to '. employeeName($battery->issued_to).' by '. employeeName($battery->issued_by).' having status '. $battery->status . ' On '. Carbon::make($battery->created_at)->format('d-M-Y h:i A');
+    if( $addDays >= $battery->created_at ) {
+      return '<span class="badge badge-warning"> Last issued on ' . Carbon::make( $battery->created_at )->format( 'd-M-Y, h:i:s A' ) . ' to ' . $battery->to->name . ' by ' . $battery->by->name . 'having status ' . $battery->status . '</span>';
+    }
+    return 'Issued to ' . $battery->to->name . ' remarks ' . $battery->remarks . ' On ' . Carbon::make( $battery->created_at )->format( 'd-M-Y h:i A' );
   }
   return '';
 }

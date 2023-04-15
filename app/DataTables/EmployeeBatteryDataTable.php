@@ -22,13 +22,13 @@ class EmployeeBatteryDataTable extends DataTable
       ->eloquent( $query )
       ->addIndexColumn()
       ->addColumn( 'battery', static function( $row ) {
-        return '<a href="#" onclick="batteryClick(' . $row->battery_id . ')" >' . batteryName( $row->battery_id ) . '</a>';
+        return '<a href="#" onclick="batteryClick(' . $row->battery_id . ')" >' . $row->battery->name . '</a>';
       } )->addColumn( 'date', static function( $row ) {
         return Carbon::make( $row->created_at )->format( 'd-m-Y h:i A' );
       } )->addColumn( 'issued_by', static function( $row ) {
-        return employeeName( $row->issued_by );
+        return $row->by->name;
       } )->addColumn( 'issued_to', static function( $row ) {
-        return employeeName( $row->issued_to );
+        return $row->to->name;
       } )->addColumn( 'status', static function( $row ) {
         if( $row->status == 'Good' ) {
           return '<span class="badge bg-success">Good</span>';

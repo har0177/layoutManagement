@@ -27,10 +27,10 @@ class BatteryService
    */
   public function dataTables( Request $request, DataTables $dataTables )
   {
-  
+    
     $table = $dataTables->eloquent( $this->repository->dataTablesQuery() );
-     $table->addColumn( 'status', static function( $row ) {
-             return  batteryUser( $row->id );
+    $table->addColumn( 'status', static function( $row ) {
+      return batteryUser( $row->id );
     } );
     $table->addColumn( 'action', static function( Battery $row ) {
       

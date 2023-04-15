@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\BatteryUser;
 use App\Services\EmployeeBatteryService;
-use Carbon\Carbon;
+use Cache;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -27,7 +27,7 @@ class BatteryEmployeeController extends Controller
       
       return $this->service->dataTables( $request, $dataTables );
     }
-    return view( 'admin.dashboard.index' );
+    
   }// index
   
   /**
@@ -60,7 +60,6 @@ class BatteryEmployeeController extends Controller
       BatteryUser::create( $data );
       
     }
-    
     return response()->json( [ 'status' => 'ok', 'message' => 'Battery Issued Successfully' ], 200 );
   } // store
   

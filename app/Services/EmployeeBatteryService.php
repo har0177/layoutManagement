@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Battery;
 use App\Repositories\EmployeeBatteryRepository;
 use Carbon\Carbon;
 use Exception;
@@ -28,8 +29,10 @@ class EmployeeBatteryService
   {
     $table = $dataTables->eloquent( $this->repository->dataTablesQuery() );
     
+    $table->addIndexColumn();
+    
     $table->addColumn( 'battery', static function( $row ) {
-             return '<a href="#" onclick="batteryClick(' . $row->battery_id . ')" >' . $row->battery->name . '</a>';
+      return '<a href="#" onclick="batteryClick(' . $row->battery_id . ')" >' . $row->battery->name . '</a>';
     } );
     
     $table->addColumn( 'date', static function( $row ) {
@@ -39,20 +42,20 @@ class EmployeeBatteryService
     $table->addColumn( 'issued_by', static function( $row ) {
       return $row->by->name;
     } );
-  
+    
     $table->addColumn( 'issued_to', static function( $row ) {
       return $row->to->name;
     } );
-  
-  /*
-    $table->addColumn( 'type', static function( $row ) {
-      if( $row->location_type == 'Camp' ) {
-        return '<span class="badge bg-success">Camp</span>';
-      } else {
-        return '<span class="badge bg-warning">Field</span>';
-        
-      }
-    } );*/
+    
+    /*
+      $table->addColumn( 'type', static function( $row ) {
+        if( $row->location_type == 'Camp' ) {
+          return '<span class="badge bg-success">Camp</span>';
+        } else {
+          return '<span class="badge bg-warning">Field</span>';
+          
+        }
+      } );*/
     
     $table->addColumn( 'status', static function( $row ) {
       if( $row->status == 'Good' ) {
@@ -69,5 +72,6 @@ class EmployeeBatteryService
     
     return $table->make();
   }
+  
   
 }

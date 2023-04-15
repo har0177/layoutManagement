@@ -30,6 +30,8 @@ Route::get( '/',
 Route::prefix( 'dashboard' )->group( function() {
   Route::post( '/ajax', [ BatteryEmployeeController::class, 'index' ] )
        ->name( 'dashboard.ajax' )->middleware( 'can:access batteries' );
+  Route::post( '/ajax/count', [ BatteryEmployeeController::class, 'count' ] )
+       ->name( 'dashboard.ajax.count' )->middleware( 'can:access batteries' );
   Route::post( '/save', [ BatteryEmployeeController::class, 'store' ] )
        ->name( 'dashboard.save' )->middleware( 'can:add battery' );
 } );

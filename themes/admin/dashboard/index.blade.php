@@ -66,6 +66,7 @@
 				<table class="table table-bordered table-striped table-hover" id="table-batteries">
 					<thead>
 					<tr>
+						<th>Sr#</th>
 						<th>Date</th>
 						<th>Battery</th>
 						<th>Issued By</th>
@@ -79,6 +80,32 @@
 			</div>
 
 		</div>
+		<br>
+	{{--	<div class="card-body">
+			<h3>Batteries Counting</h3>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-hover" id="table-counting">
+					<thead>
+					<tr>
+						<th>Total</th>
+						<th>In Camp</th>
+						<th>In Field</th>
+						<th>Not Issued</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>{{$data['total']}}</td>
+						<td>{{$data['camp']}}</td>
+						<td>{{$data['field']}}</td>
+						<td>{{$data['not']}}</td>
+
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>--}}
 	</div>
 @endsection
 @include('plugins.ajax')
@@ -100,6 +127,7 @@
 				 type: 'post'
 			 },
 			 columns: [
+				 { data: 'DT_RowIndex' }, // Add index column
 				 { data: 'date', searchable: false },
 				 { data: 'battery' },
 				 { data: 'issued_by' },
