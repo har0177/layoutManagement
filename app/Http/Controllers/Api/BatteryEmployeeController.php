@@ -56,11 +56,17 @@ class BatteryEmployeeController extends Controller
           400 );
       }
       
-      $data[ 'type' ] = 'Camp';
-      
       $data[ 'battery_id' ] = $bat;
       
       if( (int) $request->issued_by === 51 ) {
+        $data[ 'type' ] = 'Field';
+      }
+      
+      if( (int) $request->issued_to === 51 ) {
+        $data[ 'type' ] = 'Camp';
+      }
+      
+      if( (int) $request->issued_by !== 51 && (int) $request->issued_to !== 51 ) {
         $data[ 'type' ] = 'Field';
       }
       BatteryUser::create( $data );
