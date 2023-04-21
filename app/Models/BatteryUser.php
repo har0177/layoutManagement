@@ -11,7 +11,7 @@ class BatteryUser extends Model
   use HasFactory;
   
   protected $fillable = [
-    'id', 'battery_id', 'issued_to', 'status', 'issued_by', 'remarks'
+    'id', 'battery_id', 'issued_to', 'status', 'issued_by', 'remarks', 'type'
   ];
   
   public function to()

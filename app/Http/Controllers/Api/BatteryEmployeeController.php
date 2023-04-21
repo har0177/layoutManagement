@@ -56,9 +56,14 @@ class BatteryEmployeeController extends Controller
           400 );
       }
       
-      $data[ 'battery_id' ] = $bat;
-      BatteryUser::create( $data );
+      $data[ 'type' ] = 'Camp';
       
+      $data[ 'battery_id' ] = $bat;
+      
+      if( (int) $request->issued_by === 51 ) {
+        $data[ 'type' ] = 'Field';
+      }
+      BatteryUser::create( $data );
     }
     return response()->json( [ 'status' => 'ok', 'message' => 'Battery Issued Successfully' ], 200 );
   } // store

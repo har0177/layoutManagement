@@ -81,7 +81,7 @@
 
 		</div>
 		<br>
-	{{--	<div class="card-body">
+		<div class="card-body">
 			<h3>Batteries Counting</h3>
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped table-hover" id="table-counting">
@@ -95,17 +95,17 @@
 					</thead>
 					<tbody>
 					<tr>
-						<td>{{$data['total']}}</td>
-						<td>{{$data['camp']}}</td>
-						<td>{{$data['field']}}</td>
-						<td>{{$data['not']}}</td>
+						<td><a href="{{route('admin.batteries')}}">{{$total}}</a></td>
+						<td><a href="{{route('camp')}}">{{$camp}}</a></td>
+						<td><a href="{{route('field')}}">{{$field}}</a></td>
+						<td><a href="{{route('not')}}">{{$notIssued}}</a></td>
 
 					</tr>
 					</tbody>
 				</table>
 			</div>
 
-		</div>--}}
+		</div>
 	</div>
 @endsection
 @include('plugins.ajax')

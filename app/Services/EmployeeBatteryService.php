@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Battery;
+use App\Models\BatteryUser;
 use App\Repositories\EmployeeBatteryRepository;
 use Carbon\Carbon;
 use Exception;

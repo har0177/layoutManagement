@@ -1,31 +1,31 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\InventoryController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\OrderUpdateController;
-use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\StockController;
-use App\Http\Controllers\Api\AccountController;
-use App\Http\Controllers\Api\BankController;
 use App\Http\Controllers\Api\BatteryController;
 use App\Http\Controllers\Api\BatteryEmployeeController;
-use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EmployeeController;
-use App\Http\Controllers\Api\PaymentMethodsController;
-use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\Select2Controller;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\VendorController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PointOfSale;
 use Illuminate\Support\Facades\Route;
 
 Route::get( '/',
   [ DashboardController::class, 'index' ] )->name( 'dashboard' )->middleware( 'can:access dashboard' );
+
+Route::get( '/camp', [ DashboardController::class, 'camp' ] )
+     ->name( 'camp' );
+
+
+Route::get( '/field', [ DashboardController::class, 'field' ] )
+     ->name( 'field' );
+
+
+
+Route::get( '/not', [ DashboardController::class, 'not' ] )
+     ->name( 'not' );
 
 Route::prefix( 'dashboard' )->group( function() {
   Route::post( '/ajax', [ BatteryEmployeeController::class, 'index' ] )
@@ -155,7 +155,6 @@ Route::prefix( 'batteries' )->group( function() {
   Route::post( '/edit/{battery}', [ BatteryController::class, 'update' ] )
        ->name( 'batteries.update' )->middleware( 'can:update battery' );
   
-  
   Route::post( '/get', [ BatteryController::class, 'getData' ] )
        ->name( 'batteries.getData' )->middleware( 'can:add battery' );
   
@@ -206,4 +205,5 @@ Route::prefix( 'logs' )->group( function() {
        ->name( 'admin.logs.filter' )->middleware( 'can:access logs' );
   
 } );
+
 
