@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBatteriesTable extends Migration
+class CreateChannelsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -12,11 +12,10 @@ class CreateBatteriesTable extends Migration
    */
   public function up()
   {
-    Schema::create( 'batteries', function( Blueprint $table ) {
+    Schema::create( 'channels', function( Blueprint $table ) {
       $table->id();
       $table->string( 'name' );
-      $table->string( 'code' );
-      $table->softDeletes();
+      $table->string( 'quantity' );
       $table->timestamps();
     } );
   }
@@ -27,6 +26,6 @@ class CreateBatteriesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists( 'batteries' );
+    Schema::dropIfExists( 'channels' );
   }
 }

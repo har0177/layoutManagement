@@ -1,12 +1,12 @@
 @extends('admin.layouts.admin')
 
-@section('page-title','Manage Batteries')
-@section('heading','Manage Batteries')
-@section('breadcrumbs', 'Batteries')
+@section('page-title','Manage Channels')
+@section('heading','Manage Channels')
+@section('breadcrumbs', 'Channels')
 
 @section('content')
-	@include('admin.batteries.edit')
-	@include('admin.batteries.overview')
+	@include('admin.channels.edit')
+	@include('admin.channels.overview')
 @endsection
 
 @include('plugins.ajax')
@@ -16,55 +16,20 @@
 	<script>
 	 let table
 	 $(document).ready(function () {
-		 table = $('#table-batteries').dataTable({
+		 table = $('#table-channels').dataTable({
 			 autoWidth: true,
 			 ordering: false,
 			 ajax: {
-				 url: "{{route('batteries.ajax')}}",
+				 url: "{{route('channels.ajax')}}",
 				 type: 'post'
 			 },
 			 columns: [
 				 { data: 'name' },
-				 	 { data: 'status' },
+				 { data: 'quantity' },
 				 { data: 'action' }
 			 ]
 		 })
 	 })
-
-	 // Delete
-	 ui.$body.on('click', '[data-action="delete"]', function (e) {
-		 e.preventDefault()
-		 let $el = $(this)
-		 $.confirm({
-			 title: 'Delete?',
-			 content: 'Do you want to delete this code?',
-			 type: 'red',
-			 buttons: {
-				 confirm: function () {
-					 $.ajax({
-						 url: $el.attr('data-url'),
-						 type: 'post',
-						 dataType: 'json',
-						 success: function (res) {
-							 if (res.status === 'ok') {
-								 ui.successMessage(res.message)
-								 table.api().ajax.reload(null, false)
-								 return
-							 }
-							 ui.errorMessage(res.message)
-						 },
-						 error: function (res) {
-							 ui.ajaxError(res)
-						 }
-					 })
-				 },
-				 cancel: function () {
-				 }
-			 }
-		 })
-	 })
-
-
 
 	 ui.$body.on('submit', '#form-edit', function (e) {
 		 e.preventDefault()
@@ -80,7 +45,7 @@
 					 ui.successMessage(res.message)
 					 $form[0].reset()
 					 table.api().ajax.reload(null, false)
-			 $('#form-submit').removeAttr('disabled')
+					 $('#form-submit').removeAttr('disabled')
 
 					 return true
 				 }
@@ -104,9 +69,10 @@
 			 dataType: 'json',
 			 success: function (res) {
 				 $('#name').val(res.name)
+				 $('#quantity').val(res.quantity)
 
-				 $('#form-submit').removeAttr('disabled').val('Update Battery')
-				 $('#section-edit').find('.card-title').text('Edit ' + res.name + ' Battery')
+				 $('#form-submit').removeAttr('disabled').val('Update Channels')
+				 $('#section-edit').find('.card-title').text('Edit ' + res.name + ' Channels')
 
 				 $form.attr('action', $el.attr('data-url'))
 

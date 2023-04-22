@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\ChannelController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GapController;
+use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\LayoutController;
+use App\Http\Controllers\Admin\ProblemController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Api\BatteryController;
-use App\Http\Controllers\Api\BatteryEmployeeController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\Select2Controller;
@@ -14,27 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get( '/',
   [ DashboardController::class, 'index' ] )->name( 'dashboard' )->middleware( 'can:access dashboard' );
-
-Route::get( '/camp', [ DashboardController::class, 'camp' ] )
-     ->name( 'camp' );
-
-
-Route::get( '/field', [ DashboardController::class, 'field' ] )
-     ->name( 'field' );
-
-
-
-Route::get( '/not', [ DashboardController::class, 'not' ] )
-     ->name( 'not' );
-
-Route::prefix( 'dashboard' )->group( function() {
-  Route::post( '/ajax', [ BatteryEmployeeController::class, 'index' ] )
-       ->name( 'dashboard.ajax' )->middleware( 'can:access batteries' );
-  Route::post( '/ajax/count', [ BatteryEmployeeController::class, 'count' ] )
-       ->name( 'dashboard.ajax.count' )->middleware( 'can:access batteries' );
-  Route::post( '/save', [ BatteryEmployeeController::class, 'store' ] )
-       ->name( 'dashboard.save' )->middleware( 'can:add battery' );
-} );
 
 Route::prefix( 'users' )->group( function() {
   Route::get( '/', [ \App\Http\Controllers\Admin\UserController::class, 'index' ] )
@@ -63,8 +45,6 @@ Route::prefix( 'users' )->group( function() {
 Route::prefix( 'select2' )->group( static function() {
   Route::post( 'employee',
     [ Select2Controller::class, 'employee' ] )->name( 'select2.employee' );
-  Route::post( 'batteries',
-    [ Select2Controller::class, 'batteries' ] )->name( 'select2.batteries' );
   Route::post( 'roles',
     [ Select2Controller::class, 'roles' ] )->name( 'select2.roles' );
   
@@ -137,29 +117,122 @@ Route::prefix( 'roles' )->group( function() {
 } );
 
 /**
- * batteries
+ * channels
  */
-Route::prefix( 'batteries' )->group( function() {
-  Route::get( '/', [ \App\Http\Controllers\Admin\BatteryController::class, 'index' ] )
-       ->name( 'admin.batteries' )->middleware( 'can:access batteries' );
+Route::prefix( 'channels' )->group( function() {
+  Route::get( '/', [ ChannelController::class, 'index' ] )
+       ->name( 'admin.channels' )->middleware( 'can:access channels' );
   
-  Route::post( '/ajax', [ \App\Http\Controllers\Admin\BatteryController::class, 'index' ] )
-       ->name( 'batteries.ajax' )->middleware( 'can:access batteries' );
+  Route::post( '/ajax', [ ChannelController::class, 'index' ] )
+       ->name( 'channels.ajax' )->middleware( 'can:access channel' );
   
-  Route::post( '/add', [ BatteryController::class, 'store' ] )
-       ->name( 'batteries.add' )->middleware( 'can:add battery' );
+  Route::post( '/add', [ ChannelController::class, 'store' ] )
+       ->name( 'channels.add' )->middleware( 'can:add channel' );
   
-  Route::get( '/edit/{battery}', [ \App\Http\Controllers\Admin\BatteryController::class, 'edit' ] )
-       ->name( 'batteries.edit' )->middleware( 'can:update battery' );
+  Route::get( '/edit/{channel}', [ ChannelController::class, 'edit' ] )
+       ->name( 'channels.edit' )->middleware( 'can:update channel' );
   
-  Route::post( '/edit/{battery}', [ BatteryController::class, 'update' ] )
-       ->name( 'batteries.update' )->middleware( 'can:update battery' );
+  Route::post( '/edit/{channel}', [ ChannelController::class, 'update' ] )
+       ->name( 'channels.update' )->middleware( 'can:update channel' );
   
-  Route::post( '/get', [ BatteryController::class, 'getData' ] )
-       ->name( 'batteries.getData' )->middleware( 'can:add battery' );
+  Route::post( '/delete/{channel}', [ ChannelController::class, 'destroy' ] )
+       ->name( 'channels.delete' )->middleware( 'can:delete channel' );
   
-  Route::post( '/delete/{battery}', [ BatteryController::class, 'destroy' ] )
-       ->name( 'batteries.delete' )->middleware( 'can:delete battery' );
+} );
+
+/**
+ * groups
+ */
+Route::prefix( 'groups' )->group( function() {
+  Route::get( '/', [ GroupController::class, 'index' ] )
+       ->name( 'admin.groups' )->middleware( 'can:access groups' );
+  
+  Route::post( '/ajax', [ GroupController::class, 'index' ] )
+       ->name( 'groups.ajax' )->middleware( 'can:access group' );
+  
+  Route::post( '/add', [ GroupController::class, 'store' ] )
+       ->name( 'groups.add' )->middleware( 'can:add group' );
+  
+  Route::get( '/edit/{group}', [ GroupController::class, 'edit' ] )
+       ->name( 'groups.edit' )->middleware( 'can:update group' );
+  
+  Route::post( '/edit/{group}', [ GroupController::class, 'update' ] )
+       ->name( 'groups.update' )->middleware( 'can:update group' );
+  
+  Route::post( '/delete/{group}', [ GroupController::class, 'destroy' ] )
+       ->name( 'groups.delete' )->middleware( 'can:delete group' );
+  
+} );
+
+/**
+ * gaps
+ */
+Route::prefix( 'gaps' )->group( function() {
+  Route::get( '/', [ GapController::class, 'index' ] )
+       ->name( 'admin.gaps' )->middleware( 'can:access gaps' );
+  
+  Route::post( '/ajax', [ GapController::class, 'index' ] )
+       ->name( 'gaps.ajax' )->middleware( 'can:access gap' );
+  
+  Route::post( '/add', [ GapController::class, 'store' ] )
+       ->name( 'gaps.add' )->middleware( 'can:add gap' );
+  
+  Route::get( '/edit/{gap}', [ GapController::class, 'edit' ] )
+       ->name( 'gaps.edit' )->middleware( 'can:update gap' );
+  
+  Route::post( '/edit/{gap}', [ GapController::class, 'update' ] )
+       ->name( 'gaps.update' )->middleware( 'can:update gap' );
+  
+  Route::post( '/delete/{gap}', [ GapController::class, 'destroy' ] )
+       ->name( 'gaps.delete' )->middleware( 'can:delete gap' );
+  
+} );
+
+/**
+ * problems
+ */
+Route::prefix( 'problems' )->group( function() {
+  Route::get( '/', [ ProblemController::class, 'index' ] )
+       ->name( 'admin.problems' )->middleware( 'can:access problems' );
+  
+  Route::post( '/ajax', [ ProblemController::class, 'index' ] )
+       ->name( 'problems.ajax' )->middleware( 'can:access problem' );
+  
+  Route::post( '/add', [ ProblemController::class, 'store' ] )
+       ->name( 'problems.add' )->middleware( 'can:add problem' );
+  
+  Route::get( '/edit/{problem}', [ ProblemController::class, 'edit' ] )
+       ->name( 'problems.edit' )->middleware( 'can:update problem' );
+  
+  Route::post( '/edit/{problem}', [ ProblemController::class, 'update' ] )
+       ->name( 'problems.update' )->middleware( 'can:update problem' );
+  
+  Route::post( '/delete/{problem}', [ ProblemController::class, 'destroy' ] )
+       ->name( 'problems.delete' )->middleware( 'can:delete problem' );
+  
+} );
+
+/**
+ * problems
+ */
+Route::prefix( 'layouts' )->group( function() {
+  Route::get( '/', [ LayoutController::class, 'index' ] )
+       ->name( 'admin.layouts' )->middleware( 'can:access layouts' );
+  
+  Route::post( '/ajax', [ LayoutController::class, 'index' ] )
+       ->name( 'layouts.ajax' )->middleware( 'can:access layout' );
+  
+  Route::post( '/add', [ LayoutController::class, 'store' ] )
+       ->name( 'layouts.add' )->middleware( 'can:add layout' );
+  
+  Route::get( '/edit/{layout}', [ LayoutController::class, 'edit' ] )
+       ->name( 'layouts.edit' )->middleware( 'can:update layout' );
+  
+  Route::post( '/edit/{layout}', [ LayoutController::class, 'update' ] )
+       ->name( 'layouts.update' )->middleware( 'can:update layout' );
+  
+  Route::post( '/delete/{layout}', [ LayoutController::class, 'destroy' ] )
+       ->name( 'layouts.delete' )->middleware( 'can:delete layout' );
   
 } );
 

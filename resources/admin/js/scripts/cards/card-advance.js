@@ -14,15 +14,15 @@ $(window).on('load', function () {
 
   var employeePrimaryChartOptions1;
   var employeeDangerChartOptions;
-  var employeeSuccessChartOptions;
-  var employeeSecondaryChartOptions;
+  var foremansuccessChartOptions;
+  var foremansecondaryChartOptions;
   var employeeWarningChartOptions;
   var employeePrimaryChartOptions2;
 
   var employeePrimaryChart1;
   var employeeDangerChart;
-  var employeeSuccessChart;
-  var employeeSecondaryChart;
+  var foremansuccessChart;
+  var foremansecondaryChart;
   var employeeWarningChart;
   var employeePrimaryChart2;
 
@@ -156,7 +156,7 @@ $(window).on('load', function () {
   employeeDangerChart.render();
 
   // Employee Success Chart
-  employeeSuccessChartOptions = {
+  foremansuccessChartOptions = {
     chart: {
       height: 30,
       width: 30,
@@ -196,11 +196,11 @@ $(window).on('load', function () {
       lineCap: 'round'
     }
   };
-  employeeSuccessChart = new ApexCharts($employeeChartSuccess, employeeSuccessChartOptions);
-  employeeSuccessChart.render();
+  foremansuccessChart = new ApexCharts($employeeChartSuccess, foremansuccessChartOptions);
+  foremansuccessChart.render();
 
   // Employee Secondary Chart
-  employeeSecondaryChartOptions = {
+  foremansecondaryChartOptions = {
     chart: {
       height: 30,
       width: 30,
@@ -240,8 +240,8 @@ $(window).on('load', function () {
       lineCap: 'round'
     }
   };
-  employeeSecondaryChart = new ApexCharts($employeeChartSecondary, employeeSecondaryChartOptions);
-  employeeSecondaryChart.render();
+  foremansecondaryChart = new ApexCharts($employeeChartSecondary, foremansecondaryChartOptions);
+  foremansecondaryChart.render();
 
   // Employee Warning Chart
   employeeWarningChartOptions = {

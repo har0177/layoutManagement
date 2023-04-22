@@ -16,27 +16,66 @@
 			</li>
 		@endif
 
-		@if(user_can('access roles'))
+		@if(user_can('access channels'))
 			<li class="nav-item">
-				<a href="{{url('admin/roles')}}" class="nav-link {!! request()->is('admin/reports/role*')?' active':'' !!}">
-					<i class="icon-menu3"></i>
-					<span>Roles</span>
+				<a href="{{url('admin/channels')}}" class="nav-link {!! request()->is('admin/channels*')?' active':'' !!}">
+					<i class="fas fa-address-book"></i>
+					<span>Channels</span>
 				</a>
 			</li>
 		@endif
-		@if(user_can('access batteries'))
+
+		@if(user_can('access groups'))
 			<li class="nav-item">
-				<a href="{{url('admin/batteries')}}" class="nav-link {!! request()->is('admin/batteries*')?' active':'' !!}">
-					<i class="fas fa-list"></i>
-					<span>Batteries</span>
+				<a href="{{url('admin/groups')}}" class="nav-link {!! request()->is('admin/groups*')?' active':'' !!}">
+					<i class="fas fa-address-book"></i>
+					<span>Groups</span>
 				</a>
 			</li>
 		@endif
+
+		@if(user_can('access layouts'))
+			<li class="nav-item">
+				<a href="{{url('admin/layouts')}}" class="nav-link {!! request()->is('admin/layouts*')?' active':'' !!}">
+					<i class="fas fa-address-book"></i>
+					<span>Layouts</span>
+				</a>
+			</li>
+		@endif
+
+		@if(user_can('access problems'))
+			<li class="nav-item">
+				<a href="{{url('admin/problems')}}" class="nav-link {!! request()->is('admin/problems*')?' active':'' !!}">
+					<i class="fas fa-address-book"></i>
+					<span>Problems</span>
+				</a>
+			</li>
+		@endif
+
+		@if(user_can('access gaps'))
+			<li class="nav-item">
+				<a href="{{url('admin/gaps')}}" class="nav-link {!! request()->is('admin/gaps*')?' active':'' !!}">
+					<i class="fas fa-address-book"></i>
+					<span>Gaps</span>
+				</a>
+			</li>
+		@endif
+
+
 		@if(user_can('access employee'))
 			<li class="nav-item">
 				<a href="{{url('admin/employee')}}" class="nav-link {!! request()->is('admin/employee*')?' active':'' !!}">
 					<i class="fas fa-address-book"></i>
 					<span>Employee</span>
+				</a>
+			</li>
+		@endif
+
+		@if(user_can('access roles'))
+			<li class="nav-item">
+				<a href="{{url('admin/roles')}}" class="nav-link {!! request()->is('admin/reports/role*')?' active':'' !!}">
+					<i class="icon-menu3"></i>
+					<span>Roles</span>
 				</a>
 			</li>
 		@endif

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Battery;
-use App\Services\BatteryService;
+use App\Models\Problem;
+use App\Services\ProblemService;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,11 +13,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class BatteryController extends Controller
+class ProblemController extends Controller
 {
   private $service;
   
-  public function __construct( BatteryService $service )
+  public function __construct( ProblemService $service )
   {
     $this->service = $service;
   }
@@ -33,16 +33,16 @@ class BatteryController extends Controller
     if( $request->ajax() && $request->isMethod( 'post' ) ) {
       return $this->service->dataTables( $request, $dataTables );
     }
-    return view( 'admin.batteries.index' );
+    return view( 'admin.problems.index' );
   }// index
   
   /**
-   * @param Battery $battery
+   * @param Problem $problem
    * @return JsonResponse
    */
-  public function edit( Battery $battery ) : JsonResponse
+  public function edit( Problem $problem ) : JsonResponse
   {
-    return new JsonResponse( $battery );
+    return new JsonResponse( $problem );
   }// edit
   
 }

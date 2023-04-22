@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Battery;
+use App\Models\Problem;
 use Illuminate\Database\Eloquent\Builder;
 use Prettus\Repository\Eloquent\BaseRepository;
 
-class BatteryRepository extends BaseRepository
+class ProblemRepository extends BaseRepository
 {
   
   public function model()
   {
-    return Battery::class;
+    return Problem::class;
   }
   
   /**
@@ -19,7 +19,7 @@ class BatteryRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Battery::query();
+    return Problem::query();
   }
   
 }
