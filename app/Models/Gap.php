@@ -14,6 +14,8 @@ class Gap extends Model
     'area', 'mobile_number', 'permit_by', 'status'
   ];
   
+  protected $with = ['employee'];
+  
   public function employee()
   {
     return $this->belongsTo( Employee::class );

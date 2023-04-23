@@ -29,6 +29,10 @@ class GapService
   {
     $table = $dataTables->eloquent( $this->repository->dataTablesQuery() );
     
+    $table->addColumn( 'employee', static function( $row ) {
+      return $row->employee->name;
+    } );
+    
     $table->addColumn( 'action', static function( Gap $row ) {
       
       $buttons = [
@@ -50,7 +54,7 @@ class GapService
       ];
       return Ui::actionButtons( $buttons );
     } );
-    $table->rawColumns( [ 'action' ] );
+    $table->rawColumns( [ 'action', 'employee' ] );
     
     return $table->make();
   }

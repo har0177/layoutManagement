@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Helpers\Ui;
+use App\Models\Layout;
 use App\Models\Problem;
+use App\Repositories\LayoutRepository;
 use App\Repositories\ProblemRepository;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,6 +31,14 @@ class ProblemService
   public function dataTables( Request $request, DataTables $dataTables )
   {
     $table = $dataTables->eloquent( $this->repository->dataTablesQuery() );
+    
+    $table->editColumn( 'date', static function( $row ) {
+      return Carbon::make( $row->date )->format( 'd-M-Y' );
+    } );
+    
+    $table->editColumn( 'recovery_date', static function( $row ) {
+      return Carbon::make( $row->recovery_date )->format( 'd-M-Y' );
+    } );
     
     $table->addColumn( 'action', static function( Problem $row ) {
       
