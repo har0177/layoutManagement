@@ -5,9 +5,8 @@
 
 		<div class="header-elements">
 			<div class="list-icons">
-				<h4>Total Channels: {{$channels}}</h4> &nbsp;&nbsp;
-				<h4>In Field: {{$inField}}</h4>
-				<h4>In Camp: {{$inCamp}}</h4>
+				<h4>Stolen: {{$totalStolen ?? 0}}</h4> &nbsp;&nbsp;
+				<h4>Qabza: {{$totalQabza ?? 0}}</h4>
 			</div>
 		</div>
 	</div>

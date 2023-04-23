@@ -40,6 +40,8 @@
 			 ]
 		 })
 
+		$('body').addClass('sidebar-xs')
+
 	 })
 
 	 ui.$body.on('submit', '#form-edit', function (e) {

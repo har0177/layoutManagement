@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
+use App\Models\Gap;
 use App\Models\Layout;
+use App\Models\Problem;
 use App\Services\LayoutService;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -36,12 +38,17 @@ class LayoutController extends Controller
     $channels = Channel::sum( 'quantity' );
     $totalPointField = Layout::where( 'status', 'Field' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalPointCamp = Layout::where( 'status', 'Camp' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $inField = $totalPointField - $totalPointCamp;
+    $totalGap = Gap::where( 'status', 'UnSolved' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $totalStolen = Problem::where( 'status', 'Stolen' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $totalQabza = Problem::where( 'status', 'Qabza' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    
+    $inField = $totalPointField - $totalPointCamp - $totalGap - $totalQabza - $totalStolen;
     $inCamp = $channels - $inField;
     if( $request->ajax() && $request->isMethod( 'post' ) ) {
       return $this->service->dataTables( $request, $dataTables );
     }
-    return view( 'admin.layout.index', compact( 'channels', 'inField', 'inCamp' ) );
+    return view( 'admin.layout.index',
+      compact( 'channels', 'inField', 'inCamp', 'totalGap', 'totalQabza', 'totalStolen' ) );
   }// index
   
   /**

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Channel;
 use App\Models\Gap;
 use App\Services\GapService;
-use App\Services\ProblemService;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -34,15 +32,12 @@ class GapController extends Controller
   public function index( Request $request, DataTables $dataTables )
   {
     
-    $channels = Channel::sum( 'quantity' );
-    $totalPointField = Gap::where( 'status', 'Field' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $totalPointCamp = Gap::where( 'status', 'Camp' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $inField = $totalPointField - $totalPointCamp;
-    $inCamp = $channels - $inField;
+    $totalGap = Gap::where( 'status', 'UnSolved' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    
     if( $request->ajax() && $request->isMethod( 'post' ) ) {
       return $this->service->dataTables( $request, $dataTables );
     }
-    return view( 'admin.gaps.index', compact( 'channels', 'inField', 'inCamp' ) );
+    return view( 'admin.gaps.index', compact( 'totalGap' ) );
   }// index
   
   /**

@@ -35,6 +35,7 @@
 				 { data: 'action' },
 			 ]
 		 })
+		$('body').addClass('sidebar-xs')
 
 		 $('#employees').select2({
 			 ajax: {

@@ -38,7 +38,7 @@
 				 { data: 'action' },
 			 ]
 		 })
-
+		$('body').addClass('sidebar-xs')
 		 $('#employees').select2({
 			 ajax: {
 				 url: "{{route('select2.employee')}}",

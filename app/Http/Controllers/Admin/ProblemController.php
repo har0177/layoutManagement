@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Channel;
 use App\Models\Problem;
 use App\Services\ProblemService;
 use Exception;
@@ -33,15 +32,13 @@ class ProblemController extends Controller
   public function index( Request $request, DataTables $dataTables )
   {
     
-    $channels = Channel::sum( 'quantity' );
-    $totalPointField = Problem::where( 'status', 'Field' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $totalPointCamp = Problem::where( 'status', 'Camp' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $inField = $totalPointField - $totalPointCamp;
-    $inCamp = $channels - $inField;
+    $totalStolen = Problem::where( 'status', 'Stolen' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $totalQabza = Problem::where( 'status', 'Qabza' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    
     if( $request->ajax() && $request->isMethod( 'post' ) ) {
       return $this->service->dataTables( $request, $dataTables );
     }
-    return view( 'admin.problems.index', compact( 'channels', 'inField', 'inCamp' ) );
+    return view( 'admin.problems.index', compact( 'totalQabza', 'totalStolen' ) );
   }// index
   
   /**
