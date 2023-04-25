@@ -36,10 +36,8 @@ class LayoutController extends Controller
   {
     
     $channels = Channel::sum( 'quantity' );
-    $totalPointField = Layout::where( 'status', 'Field' )->where( 'type', '!=',
-      'Picking FDU' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $totalPointCamp = Layout::where( 'status', 'Camp' )->where( 'type', '!=',
-      'Picking FDU' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $totalPointField = Layout::where( 'status', 'Field' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $totalPointCamp = Layout::where( 'status', 'Camp' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalPickingFDU = Layout::where( 'type', 'Picking FDU' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalGap = Gap::where( 'status', 'UnSolved' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalStolen = Problem::where( 'status', 'Stolen' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
