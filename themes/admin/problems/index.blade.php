@@ -37,7 +37,10 @@
 				 { data: 'recovery_date' },
 				 { data: 'status' },
 				 { data: 'action' },
-			 ]
+			 ],		 dom: 'Bfrtip',
+		 buttons: [
+			 'copy', 'csv', 'excel', 'pdf', 'print'
+		 ]
 		 })
 
 		 $('body').addClass('sidebar-xs')

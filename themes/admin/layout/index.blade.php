@@ -14,6 +14,7 @@
 @include('plugins.select2')
 
 @push('footer')
+
 	<script>
 	 let table
 	 $(document).ready(function () {
@@ -33,6 +34,10 @@
 				 { data: 'type' },
 				 { data: 'status' },
 				 { data: 'action' },
+			 ],
+			 dom: 'Bfrtip',
+			 buttons: [
+				 'copy', 'csv', 'excel', 'pdf', 'print'
 			 ]
 		 })
 		 $('body').addClass('sidebar-xs')

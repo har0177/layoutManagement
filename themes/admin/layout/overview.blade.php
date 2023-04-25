@@ -11,6 +11,7 @@
 				<h4>Gap: {{$totalGap ?? 0}}</h4>
 				<h4>Stolen: {{$totalStolen ?? 0}}</h4>
 				<h4>Qabza: {{$totalQabza ?? 0}}</h4>
+				<h4>FDUs: {{$totalPickingFDU ?? 0}}</h4>
 			</div>
 		</div>
 	</div>
