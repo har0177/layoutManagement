@@ -35,7 +35,7 @@
 				 { data: 'action' },
 			 ]
 		 })
-		$('body').addClass('sidebar-xs')
+		 $('body').addClass('sidebar-xs')
 
 		 $('#employees').select2({
 			 ajax: {
@@ -52,7 +52,7 @@
 
 	 ui.$body.on('submit', '#form-edit', function (e) {
 		 e.preventDefault()
-		 $('#form-submit').attr('disabled', true).html('Uploading...')
+		 $('#form-submit').attr('disabled', true).html('submitting...')
 		 let $form = $(this)
 		 $.ajax({
 			 url: $form.attr('action'),
@@ -62,12 +62,9 @@
 			 success: function (res) {
 				 if (res.status === 'ok') {
 					 ui.successMessage(res.message)
-					 $form[0].reset()
-					 $('#status').val('Layout').trigger('change')
-					 $('#type').val('Field').trigger('change')
-					 $('#employees').empty().trigger('change')
 					 table.api().ajax.reload(null, false)
 					 $('#form-submit').removeAttr('disabled')
+					 resetLayout()
 					 return true
 				 }
 				 $('#form-submit').removeAttr('disabled')
@@ -114,21 +111,20 @@
 
 	 ui.$body.on('click', '#form-cancel', function (e) {
 		 e.preventDefault()
-		 $('#form-edit')[0].reset()
-		 $('#status').val('Layout').trigger('change')
-		 $('#type').val('Field').trigger('change')
-		 $('#employees').empty().trigger('change')
+		 resetLayout()
 	 })
 
 	 $('#form-reset').on('click', function (e) {
 		 e.preventDefault()
-
-		 $('#form-edit')[0].reset()
-		 $('#status').val('Layout').trigger('change')
-		 $('#type').val('Field').trigger('change')
-		 $('#employees').empty().trigger('change')
-
+		 resetLayout()
 	 })
+
+	 function resetLayout () {
+		 $('#form-edit')[0].reset()
+		 $('#status').val('Field').trigger('change')
+		 $('#type').val('Layout').trigger('change')
+		 $('#employees').empty().trigger('change')
+	 }
 
 
 	</script>

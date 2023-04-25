@@ -19,7 +19,7 @@ class ProblemRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Problem::query();
+    return Problem::query()->orderByDesc('id');
   }
   
 }

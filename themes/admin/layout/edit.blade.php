@@ -33,7 +33,7 @@
 				</div>
 				<div class="col-md-4">
 					<label
-						for="status">Type:</label>
+						for="type">Type:</label>
 					<select id="type" name="type" class="form-control select2">
 						<option value="Layout">Layout</option>
 						<option value="Picking">Picking</option>
@@ -44,7 +44,6 @@
 						for="status">Status:</label>
 					<select id="status" name="status" class="form-control select2">
 						<option value="Field">Field</option>
-
 						<option value="Camp">Camp</option>
 					</select>
 				</div>

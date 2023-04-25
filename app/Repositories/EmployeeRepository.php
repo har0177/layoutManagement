@@ -20,7 +20,7 @@ class EmployeeRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Employee::query();
+    return Employee::query()->orderByDesc('id');
   }
   
 }

@@ -20,7 +20,7 @@ class GroupRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Group::query();
+    return Group::query()->orderByDesc('id');
   }
   
 }

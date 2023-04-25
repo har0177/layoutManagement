@@ -19,7 +19,7 @@ class UserRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return User::query();
+    return User::query()->orderByDesc( 'id' );
   }
   
 }

@@ -38,7 +38,7 @@
 				 { data: 'action' },
 			 ]
 		 })
-		$('body').addClass('sidebar-xs')
+		 $('body').addClass('sidebar-xs')
 		 $('#employees').select2({
 			 ajax: {
 				 url: "{{route('select2.employee')}}",
@@ -65,9 +65,7 @@
 			 success: function (res) {
 				 if (res.status === 'ok') {
 					 ui.successMessage(res.message)
-					 $form[0].reset()
-					 $('#status').val('Gaps').trigger('change')
-					 $('#employees').empty().trigger('change')
+					 resetGap()
 
 					 table.api().ajax.reload(null, false)
 					 $('#form-submit').removeAttr('disabled')
@@ -120,20 +118,22 @@
 
 	 ui.$body.on('click', '#form-cancel', function (e) {
 		 e.preventDefault()
-		 $('#form-edit')[0].reset()
-		 $('#status').val('Gaps').trigger('change')
-		 $('#employees').empty().trigger('change')
+		 resetGap()
 
 	 })
 
 	 $('#form-reset').on('click', function (e) {
 		 e.preventDefault()
 
-		 $('#form-edit')[0].reset()
-		 $('#status').val('Gaps').trigger('change')
-		 $('#employees').empty().trigger('change')
+		 resetGap()
 
 	 })
+
+	 function resetGap () {
+		 $('#form-edit')[0].reset()
+		 $('#status').val('UnSolved').trigger('change')
+		 $('#employees').empty().trigger('change')
+	 }
 
 
 	</script>

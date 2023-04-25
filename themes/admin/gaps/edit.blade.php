@@ -47,8 +47,9 @@
 					<label
 						for="status">Status:</label>
 					<select id="status" name="status" class="form-control select2">
-						<option value="Solved">Solved</option>
 						<option value="UnSolved">UnSolved</option>
+
+						<option value="Solved">Solved</option>
 					</select>
 				</div>
 

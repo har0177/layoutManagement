@@ -19,7 +19,7 @@ class LayoutRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Layout::query();
+    return Layout::query()->orderByDesc('id');
   }
   
 }

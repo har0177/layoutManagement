@@ -19,7 +19,7 @@ class GapsRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Gap::query();
+    return Gap::query()->orderByDesc('id');
   }
   
 }

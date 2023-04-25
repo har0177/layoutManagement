@@ -19,7 +19,7 @@ class ChannelRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Channel::query();
+    return Channel::query()->orderByDesc('id');
   }
   
 }

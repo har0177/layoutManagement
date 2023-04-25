@@ -19,7 +19,7 @@ class RoleRepository extends BaseRepository
    */
   public function dataTablesQuery()
   {
-    return Role::query();
+    return Role::query()->orderByDesc('id');
   }
   
 }

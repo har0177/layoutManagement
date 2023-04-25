@@ -40,7 +40,7 @@
 			 ]
 		 })
 
-		$('body').addClass('sidebar-xs')
+		 $('body').addClass('sidebar-xs')
 
 	 })
 
@@ -57,7 +57,7 @@
 				 if (res.status === 'ok') {
 					 ui.successMessage(res.message)
 					 $form[0].reset()
-					 $('#status').val('problems').trigger('change')
+					 $('#status').val('Stolen').trigger('change')
 					 table.api().ajax.reload(null, false)
 					 $('#form-submit').removeAttr('disabled')
 					 return true
@@ -108,14 +108,14 @@
 	 ui.$body.on('click', '#form-cancel', function (e) {
 		 e.preventDefault()
 		 $('#form-edit')[0].reset()
-		 $('#status').val('problems').trigger('change')
+		 $('#status').val('Stolen').trigger('change')
 	 })
 
 	 $('#form-reset').on('click', function (e) {
 		 e.preventDefault()
 
 		 $('#form-edit')[0].reset()
-		 $('#status').val('problems').trigger('change')
+		 $('#status').val('Stolen').trigger('change')
 
 	 })
 
