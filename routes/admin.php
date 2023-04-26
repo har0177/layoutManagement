@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ChannelController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DetourController;
 use App\Http\Controllers\Admin\GapController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\LayoutController;
@@ -233,6 +234,27 @@ Route::prefix( 'layouts' )->group( function() {
   
   Route::post( '/delete/{layout}', [ LayoutController::class, 'destroy' ] )
        ->name( 'layouts.delete' )->middleware( 'can:delete layout' );
+  
+} );
+
+Route::prefix( 'detours' )->group( function() {
+  Route::get( '/', [ DetourController::class, 'index' ] )
+       ->name( 'admin.detours' )->middleware( 'can:access detours' );
+  
+  Route::post( '/ajax', [ DetourController::class, 'index' ] )
+       ->name( 'detours.ajax' )->middleware( 'can:access detour' );
+  
+  Route::post( '/add', [ DetourController::class, 'store' ] )
+       ->name( 'detours.add' )->middleware( 'can:add detour' );
+  
+  Route::get( '/edit/{detour}', [ DetourController::class, 'edit' ] )
+       ->name( 'detours.edit' )->middleware( 'can:update detour' );
+  
+  Route::post( '/edit/{detour}', [ DetourController::class, 'update' ] )
+       ->name( 'detours.update' )->middleware( 'can:update detour' );
+  
+  Route::post( '/delete/{detour}', [ DetourController::class, 'destroy' ] )
+       ->name( 'detours.delete' )->middleware( 'can:delete detour' );
   
 } );
 

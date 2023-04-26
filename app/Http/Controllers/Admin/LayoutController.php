@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
+use App\Models\Detour;
 use App\Models\Gap;
 use App\Models\Layout;
 use App\Models\Problem;
@@ -43,12 +44,14 @@ class LayoutController extends Controller
     $totalGap = Gap::where( 'status', 'UnSolved' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalStolen = Problem::where( 'status', 'Stolen' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalQabza = Problem::where( 'status', 'Qabza' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $Detour = Detour::sum( 'channels' );
     
     $inField = $totalPointField - $totalPointCamp;
     $inField = $inField - $totalGap;
     $inField = $inField - $totalQabza;
     $inField = $inField - $totalStolen;
     $inField = $inField - $totalPickingFDU;
+    $inField = $inField + $Detour;
     $inCamp = $channels - $totalPointField;
     if( $request->ajax() && $request->isMethod( 'post' ) ) {
       return $this->service->dataTables( $request, $dataTables );

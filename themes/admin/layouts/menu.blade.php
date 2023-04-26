@@ -43,6 +43,15 @@
 			</li>
 		@endif
 
+		@if(user_can('access detours'))
+			<li class="nav-item">
+				<a href="{{url('admin/detours')}}" class="nav-link {!! request()->is('admin/detours*')?' active':'' !!}">
+					<i class="fas fa-address-book"></i>
+					<span>Detours</span>
+				</a>
+			</li>
+		@endif
+
 		@if(user_can('access problems'))
 			<li class="nav-item">
 				<a href="{{url('admin/problems')}}" class="nav-link {!! request()->is('admin/problems*')?' active':'' !!}">
