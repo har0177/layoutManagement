@@ -30,6 +30,7 @@
 				 { data: 'line_number' },
 				 { data: 'point_from' },
 				 { data: 'point_to' },
+			{ data: 'totalPoint' },
 				 { data: 'date' },
 				 { data: 'type' },
 				 { data: 'status' },

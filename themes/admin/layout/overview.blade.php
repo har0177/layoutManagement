@@ -25,6 +25,7 @@
 					<th>Line Number</th>
 					<th>Point From</th>
 					<th>Point To</th>
+					<th>Total Points</th>
 					<th>Date</th>
 					<th>Type</th>
 					<th>Status</th>

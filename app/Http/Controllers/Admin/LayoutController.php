@@ -37,19 +37,24 @@ class LayoutController extends Controller
     
     $channels = Channel::sum( 'quantity' );
     $totalPointField = Layout::where( 'status', 'Field' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
-    $totalPointCamp = Layout::where( 'status', 'Camp' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
+    $totalPointCamp = Layout::where( 'status', 'Camp' )->where( 'type', '!=',
+      'Picking FDU' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalPickingFDU = Layout::where( 'type', 'Picking FDU' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalGap = Gap::where( 'status', 'UnSolved' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalStolen = Problem::where( 'status', 'Stolen' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     $totalQabza = Problem::where( 'status', 'Qabza' )->value( \DB::raw( "SUM(point_to - point_from + 1)" ) );
     
-    $inField = $totalPointField - $totalPointCamp - $totalGap - $totalQabza - $totalStolen - $totalPickingFDU;
-    $inCamp = $channels - $inField;
+    $inField = $totalPointField - $totalPointCamp;
+    $inField = $inField - $totalGap;
+    $inField = $inField - $totalQabza;
+    $inField = $inField - $totalStolen;
+    $inField = $inField - $totalPickingFDU;
+    $inCamp = $channels - $totalPointField;
     if( $request->ajax() && $request->isMethod( 'post' ) ) {
       return $this->service->dataTables( $request, $dataTables );
     }
     return view( 'admin.layout.index',
-      compact( 'channels', 'inField', 'inCamp', 'totalGap', 'totalQabza', 'totalStolen','totalPickingFDU' ) );
+      compact( 'channels', 'inField', 'inCamp', 'totalGap', 'totalQabza', 'totalStolen', 'totalPickingFDU' ) );
   }// index
   
   /**

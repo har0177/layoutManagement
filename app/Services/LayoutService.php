@@ -34,6 +34,10 @@ class LayoutService
       return $row->employee->name;
     } );
     
+    $table->addColumn( 'totalPoint', static function( $row ) {
+      return $row->point_to - $row->point_from + 1;
+    } );
+    
     $table->addColumn( 'date', static function( $row ) {
       return Carbon::make( $row->date )->format( 'd-M-Y' );
     } );
@@ -59,7 +63,7 @@ class LayoutService
       ];
       return Ui::actionButtons( $buttons );
     } );
-    $table->rawColumns( [ 'action', 'date', 'employee' ] );
+    $table->rawColumns( [ 'action', 'date', 'employee','totalPoint' ] );
     
     return $table->make();
   }
