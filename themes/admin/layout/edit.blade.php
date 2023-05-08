@@ -17,7 +17,8 @@
 				</div>
 				<div class="col-md-4">
 					<label><strong>Line Number:</strong></label>
-					<input type="number" name="line_number" placeholder="i.e. Line Number" id="line_number" class="form-control"/>
+
+					<input type="text" name="line_number" placeholder="i.e. Line Number" id="tags-input" class="form-control"/>
 				</div>
 				<div class="col-md-4">
 					<label><strong>Point From:</strong></label>

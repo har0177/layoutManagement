@@ -13,9 +13,25 @@
 @include('plugins.DataTables')
 @include('plugins.select2')
 
+
 @push('footer')
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"
+	      integrity="sha512-xmGTNt20S0t62wHLmQec2DauG9T+owP9e6VU8GigI0anN7OXLip9i7IwEhelasml2osdxX71XcYm6BQunTQeQg=="
+	      crossorigin="anonymous"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"
+	        integrity="sha512-9UR1ynHntZdqHnwXKTaOm1s6V9fExqejKvg5XMawEMToW4sSw+3jtLrYfZPijvnwnnE8Uol1O9BcAskoxgec+g=="
+	        crossorigin="anonymous"></script>
 
 	<script>
+	 let tagInputEle = $('#tags-input')
+	 $(document).ready(function () {
+		 tagInputEle.tagsinput()
+	 })
+
+	 function resetInput () {
+		 tagInputEle.tagsinput('removeAll')
+	 }
+
 	 let table
 	 $(document).ready(function () {
 		 table = $('#table-layouts').dataTable({
@@ -30,7 +46,7 @@
 				 { data: 'line_number' },
 				 { data: 'point_from' },
 				 { data: 'point_to' },
-			{ data: 'totalPoint' },
+				 { data: 'totalPoint' },
 				 { data: 'date' },
 				 { data: 'type' },
 				 { data: 'status' },
@@ -92,7 +108,7 @@
 			 url: $el.attr('data-url'),
 			 dataType: 'json',
 			 success: function (res) {
-				 $('#line_number').val(res.line_number)
+				 tagInputEle.tagsinput('add', res.line_number)
 				 $('#point_from').val(res.point_from)
 				 $('#point_to').val(res.point_to)
 				 $('#type').val(res.type)
@@ -130,6 +146,7 @@
 		 $('#status').val('Field').trigger('change')
 		 $('#type').val('Layout').trigger('change')
 		 $('#employees').empty().trigger('change')
+		 resetInput()
 	 }
 
 

@@ -68,7 +68,7 @@ class LayoutController extends Controller
       'employee_id' => 'required',
       'point_from'  => 'required|numeric|gt:0',
       'point_to'    => 'required|numeric|gt:0',
-      'line_number' => 'required|numeric|gt:0',
+      'line_number' => 'required',
       'type'        => 'required',
       'status'      => 'required',
       'date'        => 'required',
@@ -81,15 +81,26 @@ class LayoutController extends Controller
       'status.required'      => 'Status is Required',
       'date.required'        => 'Date is Required',
     ] );
-    
-    $data = $request->all();
+  
+
+    $numbers = explode( ',', $request->line_number );
     $from = $request->point_from;
     $to = $request->point_to;
     if( $from > $to ) {
       return response()->json( [ 'status' => 'error', 'message' => 'Point To must be greater than Point From' ], 400 );
     }
+    foreach( $numbers as $number ) {
+      Layout::create( [
+        'employee_id' => $request->employee_id,
+        'line_number' => $number,
+        'point_from'  => $request->point_from,
+        'point_to'    => $request->point_to,
+        'type'        => $request->type,
+        'status'      => $request->status,
+        'date'        => $request->date,
+      ] );
+    }
     
-    Layout::create( $data );
     return response()->json( [ 'status' => 'ok', 'message' => 'Layout Added' ], 200 );
   } // store
   
